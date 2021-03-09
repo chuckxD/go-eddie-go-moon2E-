@@ -1,6 +1,11 @@
 - Install node https://nodejs.org/en/download/
-- Pull down code with either get or download
-- `npm install` in directory
-- edit `.env` to match your channel
+- Pull down code with either git or download
+- WindowsKeys+r > cmd
+  - `cd` into whichever directory the code is in
+  - `npm install` in directory
+- copy `.env.example` to `.env` to match your channel
+  - get your accound id from !accinfo in chat or https://api.ivr.fi/twitch/resolve/plead
+  - get an oauth token https://twitchapps.com/tmi/
+  - add them to your new `.env` file respectively
 - `npm run start`
 - check your channel
