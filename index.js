@@ -1,6 +1,9 @@
 function main() {
   try {
     require("dotenv").config();
+
+    const throng = require("throng");
+
     const { ChatClient } = require("dank-twitch-irc");
     let channels = [];
 
@@ -35,32 +38,34 @@ function main() {
         setTimeout(() => resolve(), ms);
       });
     }
+    async function master() {
+      client.connect();
+      client.on("ready", async () => {
+        await client.on("closed", async () => {
+          await client.joinAll(channels);
+          console.info(`joined ${channels.join(", ")} running eddie`);
+        });
+      });
+    };
 
-    async function run() {
-      console.info(`you are joining ${channels.join(", ")} running eddie`);
+    async function worker (id, disconnect) {
+      console.log(`channel messenger worker online id: ${id}`);
       while (true) {
-        // await client.timeout(200);
-        await sleep(69);
+        await sleep();
         await Promise.all(
           channels.map(async (chan) => {
             await client.say(chan, `${SOME_EDDIES} ${getRandomChar()}`);
           })
-        ).catch((err) => {
-          console.log("UNCAUGHT client.say PROMISE EXCEPTION");
-          console.error(err.message);
-        });
+        );
       }
-    }
 
-    client.connect();
-    client.on("ready", async () => {
-      await client.joinAll(channels);
-      await run();
-    });
+      process.on("SIGTERM", () => {
+        console.log(`Worker ${id} exiting (cleanup here)`);
+        disconnect();
+      });
+    };
 
-    client.on("closed", async () => {
-      await client.connect();
-    });
+    throng({ master, worker, count: 8 });
   } catch (err) {
     console.error(err.message);
   }
