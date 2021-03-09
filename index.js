@@ -42,7 +42,7 @@ function main() {
 
     client.connect();
     client.join(CHANNEL);
-    client.on("ready", () => run());
+    client.on("ready", async () => await run());
   } catch (err) {
     console.error(err.message);
   }
