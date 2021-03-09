@@ -39,11 +39,15 @@ function main() {
     async function run() {
       console.info(`you are joining ${channels.join(", ")} running eddie`);
       while (true) {
-        await sleep(69);
-
-        await Promise.all(channels.map(async (chan) => {
-          await client.say(chan, `${SOME_EDDIES} ${getRandomChar()}`);
-        }));
+        await sleep(200);
+        await Promise.all(
+          channels.map(async (chan) => {
+            await client.say(chan, `${SOME_EDDIES} ${getRandomChar()}`);
+          })
+        ).catch((err) => {
+          console.log('UNCAUGHT client.say PROMISE EXCEPTION');
+          console.error(err.message);
+        });
       }
     }
 
