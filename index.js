@@ -39,10 +39,17 @@ function main() {
     async function run() {
       console.info(`you are joining ${channels.join(", ")} running eddie`);
       while (true) {
-        await sleep(200);
+        await sleep(100);
         await Promise.all(
           channels.map(async (chan) => {
-            await client.say(chan, `${SOME_EDDIES} ${getRandomChar()}`);
+            await client.say(
+              chan,
+              `${
+                chan.toLowerCase() === "sumboi_"
+                  ? SOME_EDDIES.split(" ").slice(0, 8).join(" ")
+                  : SOME_EDDIES
+              } ${getRandomChar()}`
+            );
           })
         ).catch((err) => {
           console.log('UNCAUGHT client.say PROMISE EXCEPTION');
