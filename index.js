@@ -39,7 +39,8 @@ function main() {
     async function run() {
       console.info(`you are joining ${channels.join(", ")} running eddie`);
       while (true) {
-        await sleep(69);
+        await sleep(200);
+        await client.timeout(200);
         await Promise.all(
           channels.map(async (chan) => {
             await client.say(
@@ -62,6 +63,10 @@ function main() {
     client.on("ready", async () => {
       await client.joinAll(channels);
       await run();
+    });
+
+    client.on("closed", async() => {
+      await client.connect();
     });
   } catch (err) {
     console.error(err.message);
