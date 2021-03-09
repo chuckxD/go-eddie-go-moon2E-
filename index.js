@@ -33,6 +33,7 @@ function main() {
     }
 
     async function run() {
+      console.info(`you joined ${CHANNEL} running eddie`)
       while (true) {
         await sleep();
         await client.say(CHANNEL, `${SOME_EDDIES} ${getRandomChar()}`);
@@ -41,9 +42,7 @@ function main() {
 
     client.connect();
     client.join(CHANNEL);
-    client.on("ready", () => {
-      run().then(() => console.info(`Joined ${CHANNEL}`));
-    });
+    client.on("ready", () => run());
   } catch (err) {
     console.error(err.message);
   }
