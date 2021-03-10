@@ -1,1 +1,1 @@
-worker: npm run start
+worker: node --unhandled-rejections=none index.js
