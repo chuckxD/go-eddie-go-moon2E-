@@ -37,17 +37,17 @@ function main() {
     }
 
     async function run() {
-      console.info(`you are joining ${channels.join(", ")} running eddie`);
+      console.info(`you are joining ${channels.join(", ")} running`);
       while (true) {
-        // await client.timeout(200);
-        await sleep(69);
+        await sleep();
         await Promise.all(
           channels.map(async (chan) => {
             await client.say(chan, `${SOME_EDDIES} ${getRandomChar()}`);
           })
         ).catch((err) => {
           console.log("UNCAUGHT client.say PROMISE EXCEPTION");
-          console.error(err.message);
+
+          console.error(err);
         });
       }
     }
@@ -59,6 +59,7 @@ function main() {
     });
 
     client.on("closed", async () => {
+      console.log('client closed, reconnecting...');
       await client.connect();
     });
   } catch (err) {
