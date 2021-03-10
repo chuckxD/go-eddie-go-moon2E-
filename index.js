@@ -9,6 +9,7 @@ function main() {
       CHANNELS,
       TWITCH_OAUTH_USERNAME, // this is your account id NOT display name; see https://github.com/robotty/dank-twitch-irc#usage
       TWITCH_OAUTH_PASSWORD, // check out https://twitchapps.com/tmi/ for oauth key
+      SLEEP_MS
     } = process.env;
 
     channels = CHANNELS.split(",");
@@ -16,7 +17,6 @@ function main() {
     const SOME_EDDIES =
       "moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E moon2E  moon2E";
     const ALPHANUMERIC = "abcdefghijklmnopqrstuvwxyz0123456789";
-    const SLEEP_MS = 420;
 
     let client = new ChatClient({
       username: TWITCH_OAUTH_USERNAME,
